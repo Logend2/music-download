@@ -1,22 +1,9 @@
-import urllib.request
-import urllib.parse
-import json,traceback
-import os
+import urllib.request,urllib.parse
+import json,traceback,os
 import download
 
 def getid(url):
-    '''try:
-        id = int(url)
-        return id
-    except ValueError:
-        id = url.split('id=')[-1]
-        try:
-            id = int(id)
-            return id
-        except Exception:
-            print('嘿，瞧瞧你输入了什么玩意？')
-            a = 123 / 0'''
-
+#用于判断输入为id还是url
     if url.isdigit():
         return url
     else:
@@ -31,8 +18,6 @@ def get(id):
     list = {}   #歌曲名-歌手，id组成的字典
     url = ''.join(["http://music.163.com/api/playlist/detail?id=",str(id)])#歌单地址
     print('正在获取歌单数据...')
-    print(url)
-    input
     req = urllib.request.urlopen(url)
     html = req.read().decode('utf-8')
     list1 = json.loads(html)    #返回歌单的数据解析
@@ -63,7 +48,6 @@ def downalfile(list):
         name = ''.join([ls,'/',i,'.mp3'])
         song = urllib.parse.quote(list[i])    #歌名-歌手 中文字符转ul，否则下载会出问题
         address = ''.join(['http://music.163.com/song/media/outer/url?id=',song,'.mp3'])  #歌曲下载地址
-       # downal.downal(address) #下载进度条失败的尝试
         print('(oﾟvﾟ)ノ开始下载',i,'...')
         
         data = download.download(address,name)
@@ -80,7 +64,8 @@ def downalfile(list):
 
 if __name__ == '__main__':
     try:
-        id = getid(input('输入歌单地址或id:\n'))
+        print('\t\t\t\t网易云歌单下载器v1.1\n\t欢迎使用网易云歌单下载器，脚本仅供研究学习，请于下载后24小时内删除，请问用于非法用途！！\n\t\t本脚本作者不承担任何法律责任！如有侵权请联系我删除！\n')
+        id = getid(input('请在下面输入歌单地址或id:\n'))
         list = get(id)
         downalfile(list)
         input("按任意键退出")

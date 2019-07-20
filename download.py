@@ -1,7 +1,6 @@
 import urllib.request,urllib.parse
 import time
 
-
 def formal_byte(byte):
     if byte > 1024:
         KB = byte / 1024
@@ -14,7 +13,6 @@ def formal_byte(byte):
                 return '%.2fMB' % MB
         else:
             return '%.2fKB' % KB
-
 
 
 def progress(a,b,c):
@@ -44,8 +42,9 @@ def download(url,name=''):
     print(name)
     start_time =time.time()
     urllib.request.urlretrieve(url,name,progress)
+    #print(_data)
 
 
 start_time =time.time()
 if __name__ == '__main__':
-    pass
+    download('http://music.163.com/song/media/outer/url?id=39483016.mp3','233.mp3')
